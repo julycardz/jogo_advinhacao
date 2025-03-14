@@ -1,11 +1,14 @@
 import tkinter as tk
 from tkinter import messagebox
+import random
 
-from random import randint # biblioteca para gerar um número aleatorio
-advinha = randint(0, 5) # degino a quantidade de número, faz com que o pc pense
+advinha = random.randint(1, 100) # quantidade de número, faz com que o pc pense
+
+tentativas = 3 #tentativas do usuário para acertar
 
 # Função para verificar o palpite do usuário
 def verificar():
+    global tentativas
     try:
         numero = int(entrada.get())  # Pega o valor digitado
         if numero < advinha:
@@ -14,8 +17,16 @@ def verificar():
             messagebox.showinfo("Resultado", "ERROU! O número é menor.")
         else:
             messagebox.showinfo("Resultado", "🎉 PARABÉNS! VOCÊ ACERTOU! 🎉")
+            botao.config(state=tk.DISABLED)  # Desativa o botão
+
+        tentativas -= 1  # Reduz uma tentativa
+
     except ValueError:
-        messagebox.showerror("Erro", "Digite um número válido!")
+        messagebox.showinfo("Erro", "Digite um número válido!")
+
+    if tentativas == 0:
+        messagebox.showinfo("Fim de jogo", f" Suas tentativas acabaram! O número era {advinha}")
+        botao.config(state=tk.DISABLED)
 
 janela = tk.Tk()
 janela.title("Jogo da Adivinhação")
