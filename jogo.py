@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 
-advinha = 5  
+from random import randint # biblioteca para gerar um número aleatorio
+advinha = randint(0, 5) # degino a quantidade de número, faz com que o pc pense
 
 # Função para verificar o palpite do usuário
 def verificar():
